@@ -4,11 +4,11 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      user: "Jeremy",
+      user: "",
       people: [
-        { name: "Sally W.", age: 23 },
-        { name: "Rick S.", age: 30 },
-        { name: "Samantha T.", age: 52 }
+        { name: "Sally W.", age: 23, isConfirmed: true },
+        { name: "Rick S.", age: 30, isConfirmed: true },
+        { name: "Samantha T.", age: 52, isConfirmed: false }
       ]
     };
   }
@@ -37,10 +37,19 @@ class App extends Component {
     e.preventDefault();
     
     this.setState({
-      people: [...this.state.people, { name: this.state.user }]
+      people: [...this.state.people, { name: this.state.user }],
+      user: ""
     });
     
 
+  }
+  
+  handleConfirmed = () => {
+    
+    this.setState({
+      people: [...this.state.people, {isConfirmed: !this.state.people.isConfirmed}]
+    });
+    
   }
   
   
@@ -57,7 +66,9 @@ class App extends Component {
         <h2> People - Names </h2>
         <ul className="people">
           {people.map((person, id) => (
-            <li className="person" key={id}>{person.name}</li>
+            <li className="person" key={id}>{person.name}
+              <input type="checkbox" onChange={this.handleConfirmed} />
+            </li>
           ))}
         </ul>
       </div>
